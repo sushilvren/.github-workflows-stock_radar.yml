@@ -1,0 +1,18 @@
+name: 周一开盘黑马雷达
+on:
+  schedule:
+    - cron: '26 1 * * 1' # 每周一北京时间 09:26 自动运行
+  workflow_dispatch: # 允许手动点击测试
+jobs:
+  run_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: 设置Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: 安装插件
+        run: pip install tushare pandas requests
+      - name: 运行脚本
+        run: python stock_script.py
